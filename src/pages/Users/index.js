@@ -1,5 +1,8 @@
 import { useCallback, useState } from 'react';
-import TextField from '@app/components/Forms/TextField';
+import { useLocation } from 'react-router-dom';
+import Error from '@app/components/Error';
+import Loading from '@app/components/Loading';
+import Search from '@app/components/Search';
 
 import { USER_QUERY } from '@app/graphql/queries';
 import { useApiQuery } from '@app/hooks/graphql';
@@ -8,11 +11,14 @@ import UserPanel from './components/UserPanel';
 import UserRepositories from './components/UserRepositories/index';
 
 const Users = props => {
-    const [keyword, setKeyword] = useState('');
+    // const [keyword, setKeyword] = useState('');
+    const location = useLocation();
     const [selectedUser, setSelectedUser] = useState(null);
+    let params = new URLSearchParams(location.search);
+    const keyword = params.get('keyword');
 
     // loading
-    const { error, data } = useApiQuery(USER_QUERY, {
+    const { error, data, loading } = useApiQuery(USER_QUERY, {
         variables: { keyword },
     });
 
@@ -21,28 +27,30 @@ const Users = props => {
         setSelectedUser(data);
     }, []);
 
-    const handleSearchChange = e => {
-        if (e.key === 'Enter') {
-            setKeyword(e.target.value);
-        }
+    // const handleSearchChange = e => {
+    //     if (e.key === 'Enter') {
+    //         setKeyword(e.target.value);
+    //     }
+    // }
+
+    if (error) {
+        return <Error/>
     }
 
-    if (error) return <p>Error :(</p>;
-
     return <div className="p-2">
-        <div>
-            <TextField onKeyPress={handleSearchChange} placeholder="Search" />
-        </div>
+        <Search defaultValue={keyword} />
         {data?.search?.edges && <div className="font-semibold">
             Users
         </div>}
-        <div class="flex flex-row">
+
+        {loading ? <div className="my-9"><Loading /></div> : <div class="flex flex-row">
             {data?.search?.edges?.map(item => {
                 return <UserPanel selectedUser={selectedUser} handleSelectUser={handleSelectUser} data={item} />
             })}
-        </div>
+        </div>}
 
-       
+
+
         {selectedUser && <UserRepositories user={selectedUser} />}
     </div>
 }

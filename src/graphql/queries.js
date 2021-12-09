@@ -39,7 +39,7 @@ const REPOSITORY_BY_USER_QUERY = gql`
                     endCursor
                 }
                 nodes {
-    
+
                     id
                     name
                     description
@@ -71,6 +71,7 @@ const REPOSITORY_BY_USER_ISSUES_QUERY = gql`
                         login
                     }
                 }
+                  
             }
         }
     }
