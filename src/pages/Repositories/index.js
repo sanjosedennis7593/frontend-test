@@ -55,9 +55,6 @@ const Repositories = props => {
 
     }
 
-    if (error) {
-        return <Error/>
-    }
 
     return <>
         <div className="p-2">
@@ -74,7 +71,7 @@ const Repositories = props => {
                 </div>
             </div>
 
-
+            {error && <Error/>}
             {loading ? <Loading /> : <>
 
                 <div className="grid justify-items-end my-2">

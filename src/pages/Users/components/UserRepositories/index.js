@@ -34,10 +34,6 @@ const UserRepositories = props => {
         setAfter([...(updatedAfter || [])]);
     };
 
-    if (error) {
-        return <Error/>
-    }
-
 
     return <div class="min-h-screen antialiased">
         <div className="grid justify-items-end my-2">
@@ -48,6 +44,7 @@ const UserRepositories = props => {
                 paginateNext={paginateNext}
             />
         </div>
+        {error && <Error/>}
         {loading ? <div className="my-9"><Loading /></div> : <div>
             {data?.repositoryOwner?.repositories?.nodes.map(item => {
                 return <div class="bg-gray-100 border-gray-500 border rounded-sm text-gray-700 mb-0.5 h-25">

@@ -33,16 +33,13 @@ const Users = props => {
     //     }
     // }
 
-    if (error) {
-        return <Error/>
-    }
 
     return <div className="p-2">
         <Search defaultValue={keyword} />
         {data?.search?.edges && <div className="font-semibold">
             Users
         </div>}
-
+        {error && <Error/>}
         {loading ? <div className="my-9"><Loading /></div> : <div class="flex flex-row">
             {data?.search?.edges?.map(item => {
                 return <UserPanel selectedUser={selectedUser} handleSelectUser={handleSelectUser} data={item} />
