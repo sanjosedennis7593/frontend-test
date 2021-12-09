@@ -89,7 +89,7 @@ const Repositories = props => {
                             <div class="flex p-3 border-l-8 border-red-700">
                                 <div class="flex-1">
                                     <div class="ml-3 space-y-1 pr-3">
-                                        <div class="text-base leading-6 font-normal">{item?.title}</div>
+                                        <div class="text-base leading-6 font-normal"><a href={item?.url} target="_blankk">{item?.title}</a></div>
                                         <div class="text-sm leading-4 font-normal"><span className="text-xs leading-4 font-normal text-gray-500">Author: {item?.author?.login}</span></div>
                                     </div>
                                 </div>

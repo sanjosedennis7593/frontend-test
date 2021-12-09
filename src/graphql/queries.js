@@ -67,6 +67,7 @@ const REPOSITORY_BY_USER_ISSUES_QUERY = gql`
                 }
                 nodes {
                     title
+                    url
                     author {
                         login
                     }
