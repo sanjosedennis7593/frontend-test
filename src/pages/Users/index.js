@@ -15,7 +15,7 @@ const Users = props => {
     const location = useLocation();
     const [selectedUser, setSelectedUser] = useState(null);
     let params = new URLSearchParams(location.search);
-    const keyword = params.get('keyword');
+    const keyword = params.get('keyword') || '';
 
     // loading
     const { error, data, loading } = useApiQuery(USER_QUERY, {
